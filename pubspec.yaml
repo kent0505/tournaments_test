@@ -1,0 +1,43 @@
+name: tournaments_test
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  flutter_bloc: ^9.0.0
+  shared_preferences: ^2.3.3
+  flutter_svg: ^2.0.16
+  intl: ^0.20.1
+  connectivity_plus: ^6.1.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  app_settings: ^5.2.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/fonts/
+  fonts:
+    - family: w400
+      fonts:
+        - asset: assets/fonts/Quicksand-Regular.ttf
+    - family: w700
+      fonts:
+        - asset: assets/fonts/Quicksand-Bold.ttf
