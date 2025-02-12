@@ -201,7 +201,7 @@ class _AddTournamentPageState extends State<AddTournamentPage> {
               boxShadow: [
                 BoxShadow(
                   blurRadius: 8,
-                  color: const Color(0xff3786E5).withValues(alpha: 0.24),
+                  color: const Color(0xff3786E5).withOpacity(0.24),
                 ),
               ],
             ),

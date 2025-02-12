@@ -29,7 +29,7 @@ class DialogWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xff3786E5).withValues(alpha: 0.24),
+              color: const Color(0xff3786E5).withOpacity(0.24),
               blurRadius: 8,
             ),
           ],

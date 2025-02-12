@@ -28,7 +28,7 @@ class MainButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: active
             ? AppColors.accent
-            : notActiveColor ?? AppColors.accent.withValues(alpha: 0.24),
+            : notActiveColor ?? AppColors.accent.withOpacity(0.24),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Button(
@@ -37,8 +37,7 @@ class MainButton extends StatelessWidget {
           child: Text(
             title.toUpperCase(),
             style: TextStyle(
-              color:
-                  active ? Colors.white : Colors.white.withValues(alpha: 0.24),
+              color: active ? Colors.white : Colors.white.withOpacity(0.24),
               fontSize: 18,
               fontFamily: 'w700',
             ),

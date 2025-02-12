@@ -37,7 +37,7 @@ class _ParticipantsPickerState extends State<ParticipantsPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.main.withValues(alpha: 0.8),
+      color: AppColors.main.withOpacity(0.8),
       height: 292,
       child: Column(
         children: [
@@ -134,7 +134,7 @@ class _PickerText extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          color: active ? Colors.white : Colors.white.withValues(alpha: 0.35),
+          color: active ? Colors.white : Colors.white.withOpacity(0.35),
         ),
       ),
     );
