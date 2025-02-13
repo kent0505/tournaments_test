@@ -10,10 +10,8 @@ class Participant {
 
   @HiveField(0)
   final int id;
-
   @HiveField(1)
   String name;
-
   @HiveField(2)
   bool selected;
 

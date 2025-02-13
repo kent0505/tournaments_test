@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
@@ -13,10 +11,6 @@ int getTimestamp() {
 String formatTimestamp(int timestamp) {
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
   return DateFormat("d MMMM yyyy").format(date);
-}
-
-void logger(Object message) {
-  developer.log(message.toString());
 }
 
 List<Tour> toursList = [];

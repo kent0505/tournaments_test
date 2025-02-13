@@ -6,26 +6,21 @@ class Tour {
     required this.id,
     required this.title,
     required this.amount,
-    this.winner = '',
     required this.participants,
+    this.winner = '',
     this.finished = false,
   });
 
   @HiveField(0)
   int id;
-
   @HiveField(1)
   String title;
-
   @HiveField(2)
   String amount;
-
   @HiveField(3)
   String winner;
-
   @HiveField(4)
   List participants;
-
   @HiveField(5)
   bool finished;
 }

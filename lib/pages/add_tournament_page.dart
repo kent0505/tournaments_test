@@ -77,6 +77,35 @@ class _AddTournamentPageState extends State<AddTournamentPage> {
   //   );
   // }
 
+  void onNumber() {
+    controller2.text.isEmpty
+        ? showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return ParticipantsPicker(onPick: onPick);
+            },
+          )
+        : showDialog(
+            context: context,
+            builder: (context) {
+              return DialogWidget(
+                title: 'CHANGE THE NUMBER OF PARTICIPANTS FOR TOURNAMENT?',
+                description:
+                    'Previously entered participants names will be reset and you need to start entering from the beginning. Please confirm your action.',
+                buttonTitle: 'Confirm',
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return ParticipantsPicker(onPick: onPick);
+                    },
+                  );
+                },
+              );
+            },
+          );
+  }
+
   void onSave() {
     tour = Tour(
       id: getTimestamp(),
@@ -142,35 +171,7 @@ class _AddTournamentPageState extends State<AddTournamentPage> {
                   labelText: 'Number of participants',
                   hintText: '8',
                   readOnly: true,
-                  onTap: () {
-                    controller2.text.isEmpty
-                        ? showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return ParticipantsPicker(onPick: onPick);
-                            },
-                          )
-                        : showDialog(
-                            context: context,
-                            builder: (context) {
-                              return DialogWidget(
-                                title:
-                                    'CHANGE THE NUMBER OF PARTICIPANTS FOR TOURNAMENT?',
-                                description:
-                                    'Previously entered participants names will be reset and you need to start entering from the beginning. Please confirm your action.',
-                                buttonTitle: 'Confirm',
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return ParticipantsPicker(onPick: onPick);
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          );
-                  },
+                  onTap: onNumber,
                 ),
                 const SizedBox(height: 20),
                 if (participantControllers.isNotEmpty) ...[

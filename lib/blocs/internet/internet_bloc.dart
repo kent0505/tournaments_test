@@ -36,7 +36,7 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
     ChangeStatus event,
     Emitter<InternetState> emit,
   ) {
-    event.connected ? emit(InternetSuccess()) : emit(InternetFailure());
-    // emit(InternetSuccess());
+    // event.connected ? emit(InternetSuccess()) : emit(InternetFailure());
+    emit(InternetSuccess());
   }
 }

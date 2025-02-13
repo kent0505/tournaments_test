@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/tour/tour_bloc.dart';
@@ -175,7 +176,7 @@ class _Field extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
-        keyboardType: TextInputType.name,
+        inputFormatters: [LengthLimitingTextInputFormatter(20)],
         textCapitalization: TextCapitalization.sentences,
         style: const TextStyle(
           color: Colors.white,
