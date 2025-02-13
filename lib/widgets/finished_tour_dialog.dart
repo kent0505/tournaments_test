@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/tour/tour_bloc.dart';
 import '../core/tour.dart';
 import '../pages/tournament_page.dart';
-import 'button.dart';
+import 'dialog_button.dart';
+import 'divider_widget.dart';
 
 class FinishedTourDialog extends StatefulWidget {
   const FinishedTourDialog({super.key, required this.tour});
@@ -18,29 +19,6 @@ class FinishedTourDialog extends StatefulWidget {
 class FinishedTourDialogState extends State<FinishedTourDialog> {
   bool restart = false;
   bool delete = false;
-
-  void onRestart() {
-    widget.tour.finished = false;
-    widget.tour.winner = '';
-    context.read<TourBloc>().add(UpdateTour());
-    Navigator.pop(context);
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return TournamentPage(tour: widget.tour);
-      },
-    ));
-  }
-
-  void onDelete() {
-    context.read<TourBloc>().add(DeleteTour(tour: widget.tour));
-    Navigator.pop(context);
-  }
-
-  void onCancel() {
-    restart = false;
-    delete = false;
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +60,28 @@ class FinishedTourDialogState extends State<FinishedTourDialog> {
                 ),
               ),
               const SizedBox(height: 12),
-              const _Divider(),
-              _Button(
-                onPressed: onRestart,
+              const DividerWidget(),
+              DialogButton(
+                onPressed: () {
+                  widget.tour.finished = false;
+                  widget.tour.winner = '';
+                  context.read<TourBloc>().add(UpdateTour());
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return TournamentPage(tour: widget.tour);
+                    },
+                  ));
+                },
                 title: 'Restart',
                 color: const Color(0xffFF0000),
               ),
-              const _Divider(),
-              _Button(
-                onPressed: onCancel,
+              const DividerWidget(),
+              DialogButton(
+                onPressed: () {
+                  restart = false;
+                  setState(() {});
+                },
                 title: 'Cancel',
               ),
             ] else if (delete) ...[
@@ -113,35 +104,41 @@ class FinishedTourDialogState extends State<FinishedTourDialog> {
                 ),
               ),
               const SizedBox(height: 12),
-              const _Divider(),
-              _Button(
-                onPressed: onDelete,
+              const DividerWidget(),
+              DialogButton(
+                onPressed: () {
+                  context.read<TourBloc>().add(DeleteTour(tour: widget.tour));
+                  Navigator.pop(context);
+                },
                 title: 'Confirm',
                 color: const Color(0xffFF0000),
               ),
-              const _Divider(),
-              _Button(
-                onPressed: onCancel,
+              const DividerWidget(),
+              DialogButton(
+                onPressed: () {
+                  delete = false;
+                  setState(() {});
+                },
                 title: 'Cancel',
               ),
             ] else ...[
-              _Button(
+              DialogButton(
                 onPressed: () => setState(() => restart = true),
                 title: 'Restart tournament',
               ),
-              const _Divider(),
-              _Button(
+              const DividerWidget(),
+              DialogButton(
                 onPressed: () {},
                 title: 'Share result',
               ),
-              const _Divider(),
-              _Button(
+              const DividerWidget(),
+              DialogButton(
                 onPressed: () => setState(() => delete = true),
                 title: 'Delete tournament',
                 color: const Color(0xffFF0000),
               ),
-              const _Divider(),
-              _Button(
+              const DividerWidget(),
+              DialogButton(
                 onPressed: Navigator.of(context).pop,
                 title: 'Cancel',
               ),
@@ -149,48 +146,6 @@ class FinishedTourDialogState extends State<FinishedTourDialog> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _Button extends StatelessWidget {
-  const _Button({
-    required this.title,
-    this.color = Colors.white,
-    required this.onPressed,
-  });
-
-  final String title;
-  final Color color;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Button(
-      onPressed: onPressed,
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: color,
-            fontSize: 16,
-            fontFamily: 'w400',
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  const _Divider();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 1,
-      margin: const EdgeInsets.only(bottom: 4),
-      color: const Color(0xff313344),
     );
   }
 }

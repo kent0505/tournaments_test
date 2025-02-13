@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/tour/tour_bloc.dart';
 import '../core/tour.dart';
 import '../pages/tournament_page.dart';
-import 'button.dart';
+import 'dialog_button.dart';
+import 'divider_widget.dart';
 
 class ActiveTourDialog extends StatefulWidget {
   const ActiveTourDialog({super.key, required this.tour});
@@ -17,28 +18,8 @@ class ActiveTourDialog extends StatefulWidget {
 
 class ActiveTourDialogState extends State<ActiveTourDialog> {
   final controller = TextEditingController();
-
   bool edit = false;
   bool delete = false;
-
-  void onEdit() {
-    context.read<TourBloc>().add(EditTitle(
-          id: widget.tour.id,
-          title: controller.text,
-        ));
-    Navigator.pop(context);
-  }
-
-  void onDelete() {
-    context.read<TourBloc>().add(DeleteTour(tour: widget.tour));
-    Navigator.pop(context);
-  }
-
-  void onCancel() {
-    edit = false;
-    delete = false;
-    setState(() {});
-  }
 
   @override
   void initState() {
@@ -81,53 +62,24 @@ class ActiveTourDialogState extends State<ActiveTourDialog> {
                 ),
               ),
               const SizedBox(height: 14),
-              Container(
-                height: 36,
-                decoration: BoxDecoration(
-                  color: const Color(0xff262D38),
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    width: 1,
-                    color: const Color(0xff313344),
-                  ),
-                ),
-                child: TextField(
-                  controller: controller,
-                  keyboardType: TextInputType.name,
-                  textCapitalization: TextCapitalization.sentences,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontFamily: 'w700',
-                  ),
-                  decoration: const InputDecoration(
-                    hintText: 'Title',
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 0,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.transparent),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.transparent),
-                    ),
-                    hintStyle: TextStyle(
-                      color: Color(0xff8B8E93),
-                      fontSize: 17,
-                      fontFamily: 'w400',
-                    ),
-                  ),
-                ),
-              ),
+              _Field(controller: controller),
               const SizedBox(height: 16),
-              _Button(
-                onPressed: onEdit,
+              DialogButton(
+                onPressed: () {
+                  context.read<TourBloc>().add(EditTitle(
+                        id: widget.tour.id,
+                        title: controller.text,
+                      ));
+                  Navigator.pop(context);
+                },
                 title: 'Save',
               ),
-              const _Divider(),
-              _Button(
-                onPressed: onCancel,
+              const DividerWidget(),
+              DialogButton(
+                onPressed: () {
+                  edit = false;
+                  setState(() {});
+                },
                 title: 'Cancel',
               ),
             ] else if (delete) ...[
@@ -151,19 +103,25 @@ class ActiveTourDialogState extends State<ActiveTourDialog> {
                 ),
               ),
               const SizedBox(height: 12),
-              const _Divider(),
-              _Button(
-                onPressed: onDelete,
+              const DividerWidget(),
+              DialogButton(
+                onPressed: () {
+                  context.read<TourBloc>().add(DeleteTour(tour: widget.tour));
+                  Navigator.pop(context);
+                },
                 title: 'Confirm',
                 color: const Color(0xffFF0000),
               ),
-              const _Divider(),
-              _Button(
-                onPressed: onCancel,
+              const DividerWidget(),
+              DialogButton(
+                onPressed: () {
+                  delete = false;
+                  setState(() {});
+                },
                 title: 'Cancel',
               ),
             ] else ...[
-              _Button(
+              DialogButton(
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(
@@ -174,19 +132,19 @@ class ActiveTourDialogState extends State<ActiveTourDialog> {
                 },
                 title: 'Open tournament',
               ),
-              const _Divider(),
-              _Button(
+              const DividerWidget(),
+              DialogButton(
                 onPressed: () => setState(() => edit = true),
                 title: 'Edit name',
               ),
-              const _Divider(),
-              _Button(
+              const DividerWidget(),
+              DialogButton(
                 onPressed: () => setState(() => delete = true),
                 title: 'Delete tournament',
                 color: const Color(0xffFF0000),
               ),
-              const _Divider(),
-              _Button(
+              const DividerWidget(),
+              DialogButton(
                 onPressed: Navigator.of(context).pop,
                 title: 'Cancel',
               ),
@@ -198,44 +156,51 @@ class ActiveTourDialogState extends State<ActiveTourDialog> {
   }
 }
 
-class _Button extends StatelessWidget {
-  const _Button({
-    required this.title,
-    this.color = Colors.white,
-    required this.onPressed,
-  });
+class _Field extends StatelessWidget {
+  const _Field({required this.controller});
 
-  final String title;
-  final Color color;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Button(
-      onPressed: onPressed,
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: color,
-            fontSize: 16,
-            fontFamily: 'w400',
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  const _Divider();
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 1,
-      margin: const EdgeInsets.only(bottom: 4),
-      color: const Color(0xff313344),
+      height: 36,
+      decoration: BoxDecoration(
+        color: const Color(0xff262D38),
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          width: 1,
+          color: const Color(0xff313344),
+        ),
+      ),
+      child: TextField(
+        controller: controller,
+        keyboardType: TextInputType.name,
+        textCapitalization: TextCapitalization.sentences,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 17,
+          fontFamily: 'w700',
+        ),
+        decoration: const InputDecoration(
+          hintText: 'Title',
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 14,
+            vertical: 0,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          hintStyle: TextStyle(
+            color: Color(0xff8B8E93),
+            fontSize: 17,
+            fontFamily: 'w400',
+          ),
+        ),
+      ),
     );
   }
 }

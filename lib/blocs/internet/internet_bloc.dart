@@ -12,7 +12,7 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
     on<InternetEvent>(
       (event, emit) => switch (event) {
         CheckInternet() => _checkInternet(event, emit),
-        ChangeInternet() => changeInternet(event, emit),
+        ChangeStatus() => changeStatus(event, emit),
       },
     );
   }
@@ -23,20 +23,20 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
   ) {
     _connectivity.onConnectivityChanged.listen((result) {
       if (result.contains(ConnectivityResult.mobile)) {
-        add(ChangeInternet(connected: true));
+        add(ChangeStatus(connected: true));
       } else if (result.contains(ConnectivityResult.wifi)) {
-        add(ChangeInternet(connected: true));
+        add(ChangeStatus(connected: true));
       } else {
-        add(ChangeInternet(connected: false));
+        add(ChangeStatus(connected: false));
       }
     });
   }
 
-  void changeInternet(
-    ChangeInternet event,
+  void changeStatus(
+    ChangeStatus event,
     Emitter<InternetState> emit,
   ) {
-    // event.connected ? emit(InternetSuccess()) : emit(InternetFailure());
-    emit(InternetSuccess());
+    event.connected ? emit(InternetSuccess()) : emit(InternetFailure());
+    // emit(InternetSuccess());
   }
 }

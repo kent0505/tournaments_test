@@ -5,8 +5,8 @@ sealed class InternetEvent {}
 
 class CheckInternet extends InternetEvent {}
 
-class ChangeInternet extends InternetEvent {
-  ChangeInternet({required this.connected});
+class ChangeStatus extends InternetEvent {
+  ChangeStatus({required this.connected});
 
   final bool connected;
 }

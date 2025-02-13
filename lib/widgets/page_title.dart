@@ -4,10 +4,7 @@ import 'button.dart';
 import 'svg_widget.dart';
 
 class PageTitle extends StatelessWidget {
-  const PageTitle({
-    super.key,
-    required this.title,
-  });
+  const PageTitle({super.key, required this.title});
 
   final String title;
 

@@ -7,14 +7,13 @@ class MainButton extends StatelessWidget {
   const MainButton({
     super.key,
     required this.title,
-    this.width,
     this.notActiveColor,
     this.active = true,
     required this.onPressed,
   });
 
   final String title;
-  final double? width;
+
   final Color? notActiveColor;
   final bool active;
   final void Function() onPressed;
@@ -24,7 +23,6 @@ class MainButton extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: 50,
-      width: width,
       decoration: BoxDecoration(
         color: active
             ? AppColors.accent

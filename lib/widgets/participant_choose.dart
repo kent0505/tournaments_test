@@ -55,7 +55,6 @@ class ParticipantChoose extends StatelessWidget {
                   color: participant1.selected || participant2.selected
                       ? const Color(0xff262D38)
                       : Colors.white,
-                  // color: Color(0xff262D38),
                   fontSize: 17,
                   fontFamily: 'w700',
                 ),
@@ -95,7 +94,7 @@ class _Participant extends StatelessWidget {
         ),
         child: Button(
           onPressed: () {
-            participant1.selected = true;
+            participant1.selected = !participant1.selected;
             participant2.selected = false;
             onPressed(participant1);
           },

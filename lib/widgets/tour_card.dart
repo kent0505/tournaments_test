@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/app_colors.dart';
 import '../core/tour.dart';
+import '../core/utils.dart';
 import 'active_tour_dialog.dart';
 import 'button.dart';
 import 'finished_tour_dialog.dart';
@@ -67,9 +68,11 @@ class TourCard extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: 4),
-            const Text(
-              'Last used: 29 minutes ago',
-              style: TextStyle(
+            Text(
+              tour.finished
+                  ? 'Finished: ${formatTimestamp(tour.id)}'
+                  : 'Last used: ${formatTimestamp(tour.id)}',
+              style: const TextStyle(
                 color: Color(0xff7E8082),
                 fontSize: 12,
                 fontFamily: 'w400',

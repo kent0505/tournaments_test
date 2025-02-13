@@ -1,13 +1,23 @@
 import 'dart:developer' as developer;
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 import 'participant.dart';
 import 'tour.dart';
 
-int getTimestamp() => DateTime.now().millisecondsSinceEpoch ~/ 1000;
+int getTimestamp() {
+  return DateTime.now().millisecondsSinceEpoch ~/ 1000;
+}
 
-void logger(Object message) => developer.log(message.toString());
+String formatTimestamp(int timestamp) {
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  return DateFormat("d MMMM yyyy").format(date);
+}
+
+void logger(Object message) {
+  developer.log(message.toString());
+}
 
 List<Tour> toursList = [];
 

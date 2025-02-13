@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/themes.dart';
+import 'core/app_colors.dart';
 import 'blocs/tour/tour_bloc.dart';
 import 'blocs/internet/internet_bloc.dart';
 import 'pages/splash_page.dart';
@@ -32,7 +32,19 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: theme,
+        theme: ThemeData(
+          useMaterial3: false,
+          fontFamily: 'w400',
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: AppColors.main,
+          dialogBackgroundColor: const Color(0xff202327),
+          dialogTheme: const DialogTheme(
+            insetPadding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+          ),
+        ),
         home: const SplashPage(),
       ),
     );
