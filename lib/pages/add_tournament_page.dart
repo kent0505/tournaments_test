@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/tour/tour_bloc.dart';
 import '../core/app_colors.dart';
+import '../core/participant.dart';
 import '../core/tour.dart';
 import '../core/utils.dart';
 import '../widgets/dialog_widget.dart';
@@ -84,7 +85,10 @@ class _AddTournamentPageState extends State<AddTournamentPage> {
               participants: List.generate(
                 participantControllers.length,
                 (index) {
-                  return participantControllers[index].text;
+                  return Participant(
+                    id: index,
+                    name: participantControllers[index].text,
+                  );
                 },
               ),
             ),

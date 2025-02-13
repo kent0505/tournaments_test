@@ -20,7 +20,7 @@ class Tour {
   String amount;
 
   @HiveField(3)
-  List<String> participants;
+  List participants;
 
   @HiveField(4)
   bool finished;
@@ -36,7 +36,7 @@ class TourAdapter extends TypeAdapter<Tour> {
       id: reader.readInt(),
       title: reader.readString(),
       amount: reader.readString(),
-      participants: reader.readStringList(),
+      participants: reader.readList(),
       finished: reader.readBool(),
     );
   }
@@ -46,7 +46,7 @@ class TourAdapter extends TypeAdapter<Tour> {
     writer.writeInt(obj.id);
     writer.writeString(obj.title);
     writer.writeString(obj.amount);
-    writer.writeStringList(obj.participants);
+    writer.writeList(obj.participants);
     writer.writeBool(obj.finished);
   }
 }

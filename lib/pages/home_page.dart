@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tournaments_test/widgets/tour_card.dart';
 
 import '../blocs/tour/tour_bloc.dart';
 import '../widgets/add_button.dart';
@@ -9,6 +8,7 @@ import '../widgets/empty_data.dart';
 import '../widgets/internet_widget.dart';
 import '../widgets/svg_widget.dart';
 import '../widgets/tab_widget.dart';
+import '../widgets/tour_card.dart';
 import 'settings_page.dart';
 
 class HomePage extends StatelessWidget {

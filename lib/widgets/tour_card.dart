@@ -28,6 +28,7 @@ class TourCard extends StatelessWidget {
       },
       child: Container(
         height: 68,
+        margin: const EdgeInsets.only(bottom: 8),
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 12,

@@ -17,6 +17,8 @@ class EditTour extends TourEvent {
   final Tour tour;
 }
 
+class UpdateTour extends TourEvent {}
+
 class EditTitle extends TourEvent {
   EditTitle({required this.id, required this.title});
 
@@ -28,4 +30,11 @@ class DeleteTour extends TourEvent {
   DeleteTour({required this.tour});
 
   final Tour tour;
+}
+
+class SelectParticipant extends TourEvent {
+  SelectParticipant({required this.tour, required this.participant});
+
+  final Tour tour;
+  final Participant participant;
 }
