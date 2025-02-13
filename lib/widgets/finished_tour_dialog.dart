@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:tournaments_test/core/utils.dart';
 
 import '../blocs/tour/tour_bloc.dart';
 import '../core/tour.dart';
@@ -128,7 +130,11 @@ class FinishedTourDialogState extends State<FinishedTourDialog> {
               ),
               const DividerWidget(),
               DialogButton(
-                onPressed: () {},
+                onPressed: () {
+                  Share.share(
+                    'Tournament name: ${widget.tour.title}\nFinished: ${formatTimestamp(widget.tour.id)}\nTotal participants number: ${widget.tour.participants.length}\nWinner: ${widget.tour.winner}',
+                  );
+                },
                 title: 'Share result',
               ),
               const DividerWidget(),
