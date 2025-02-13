@@ -6,12 +6,13 @@ class Tour {
     required this.id,
     required this.title,
     required this.amount,
+    this.winner = '',
     required this.participants,
     this.finished = false,
   });
 
   @HiveField(0)
-  final int id;
+  int id;
 
   @HiveField(1)
   String title;
@@ -20,9 +21,12 @@ class Tour {
   String amount;
 
   @HiveField(3)
-  List participants;
+  String winner;
 
   @HiveField(4)
+  List participants;
+
+  @HiveField(5)
   bool finished;
 }
 
@@ -36,6 +40,7 @@ class TourAdapter extends TypeAdapter<Tour> {
       id: reader.readInt(),
       title: reader.readString(),
       amount: reader.readString(),
+      winner: reader.readString(),
       participants: reader.readList(),
       finished: reader.readBool(),
     );
@@ -46,6 +51,7 @@ class TourAdapter extends TypeAdapter<Tour> {
     writer.writeInt(obj.id);
     writer.writeString(obj.title);
     writer.writeString(obj.amount);
+    writer.writeString(obj.winner);
     writer.writeList(obj.participants);
     writer.writeBool(obj.finished);
   }

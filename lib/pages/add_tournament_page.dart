@@ -11,6 +11,7 @@ import '../widgets/main_button.dart';
 import '../widgets/participants_picker.dart';
 import '../widgets/tournament_appbar.dart';
 import '../widgets/txt_field.dart';
+import 'tournament_page.dart';
 
 class AddTournamentPage extends StatefulWidget {
   const AddTournamentPage({super.key});
@@ -23,6 +24,7 @@ class _AddTournamentPageState extends State<AddTournamentPage> {
   final controller1 = TextEditingController();
   final controller2 = TextEditingController();
   List<TextEditingController> participantControllers = [];
+  late Tour tour;
 
   bool active = false;
   bool canPop = true;
@@ -76,29 +78,31 @@ class _AddTournamentPageState extends State<AddTournamentPage> {
   // }
 
   void onSave() {
-    context.read<TourBloc>().add(
-          AddTour(
-            tour: Tour(
-              id: getTimestamp(),
-              title: controller1.text,
-              amount: controller2.text,
-              participants: List.generate(
-                participantControllers.length,
-                (index) {
-                  return Participant(
-                    id: index,
-                    name: participantControllers[index].text,
-                  );
-                },
-              ),
-            ),
-          ),
-        );
+    tour = Tour(
+      id: getTimestamp(),
+      title: controller1.text,
+      amount: controller2.text,
+      participants: List.generate(
+        participantControllers.length,
+        (index) {
+          return Participant(
+            id: index,
+            name: participantControllers[index].text,
+          );
+        },
+      ),
+    );
+    context.read<TourBloc>().add(AddTour(tour: tour));
     Navigator.pop(context);
   }
 
   void onStart() {
     onSave();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return TournamentPage(tour: tour);
+      },
+    ));
   }
 
   @override

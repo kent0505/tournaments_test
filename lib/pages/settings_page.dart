@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/tour/tour_bloc.dart';
 import '../widgets/button.dart';
 import '../widgets/dialog_widget.dart';
 import '../widgets/page_title.dart';
@@ -43,7 +45,9 @@ class SettingsPage extends StatelessWidget {
                               'Are you sure? The data of the application will be lost. Please confirm your action.',
                           buttonTitle: 'Delete data',
                           buttonColor: const Color(0xffFF0000),
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<TourBloc>().add(ClearData());
+                          },
                         );
                       },
                     );

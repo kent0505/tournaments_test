@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/tour/tour_bloc.dart';
+import '../core/utils.dart';
 import '../widgets/add_button.dart';
 import '../widgets/button.dart';
 import '../widgets/empty_data.dart';
@@ -56,14 +57,14 @@ class HomePage extends StatelessWidget {
                 BlocBuilder<TourBloc, TourState>(
                   builder: (context, state) {
                     if (state is ToursLoaded) {
-                      if (state.tours.isEmpty) {
+                      if (toursList.isEmpty) {
                         return const EmptyData();
                       }
 
                       final notFinished =
-                          state.tours.where((tour) => !tour.finished).toList();
+                          toursList.where((tour) => !tour.finished).toList();
                       final finished =
-                          state.tours.where((tour) => tour.finished).toList();
+                          toursList.where((tour) => tour.finished).toList();
 
                       return Expanded(
                         child: TabWidget(

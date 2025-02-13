@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tournaments_test/core/utils.dart';
 
 import '../core/app_colors.dart';
 
@@ -38,7 +37,6 @@ class _LoadingWidgetState extends State<LoadingWidget> {
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
       (timer) {
-        logger(widget.active);
         if (widget.active && mounted) {
           setState(() {
             _index == 7 ? _index = 0 : _index++;

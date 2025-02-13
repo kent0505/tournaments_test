@@ -16,6 +16,13 @@ class Participant {
 
   @HiveField(2)
   bool selected;
+
+  factory Participant.clone(Participant p) {
+    return Participant(
+      id: p.id,
+      name: p.name,
+    );
+  }
 }
 
 class ParticipantAdapter extends TypeAdapter<Participant> {
